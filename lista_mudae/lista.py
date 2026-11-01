@@ -12,6 +12,22 @@ except (FileNotFoundError,json.decoder.JSONDecodeError):
     with open(arquivojson,mode="w",encoding="utf-8") as arquivo:
         json.dump(lista_mudae,arquivo,indent=4)
 
+def ver_lista(personagem=None,serie=None):
+    with open(arquivojson,mode="r",encoding="utf-8") as arquivo:
+        lista = json.load(arquivo)
+
+    if personagem is None and serie is None:
+        return lista
+    
+    elif personagem is not None:
+        lista_personagens = lista["lista_personagem"]
+        lista_formatada = "$".join(lista_personagens)
+        return lista_formatada
+    else:
+        lista_series = lista["lista_serie"]
+        lista_formatada = "$".join(lista_series)
+        return lista_formatada
+    
 def salvar():
     with open(arquivojson,mode="w",encoding="utf-8") as arquivo:
         json.dump(lista_mudae,arquivo,indent=4)
