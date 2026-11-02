@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import ttk
 # Requires tkcalendar:  pip install tkcalendar
 from tkcalendar import DateEntry
-
+from bibliotecas.json_gravacao import Json_utils
 
 THEME_BG = "#2b2b2b"
 THEME_FG = "#e8e8e8"
@@ -12,6 +12,22 @@ THEME_ACCENT_FG = "#ffffff"
 THEME_FIELD_BG = "#3c3c3c"
 THEME_FONT = ("Segoe UI", 10)
 
+json_prototipo = {
+            "gastos" : {
+                "hora" : [],
+                "aluguel" : [],
+                "transporte" : [],
+                "internet" : [],
+                "alimentacao" : [],
+            },
+            "investimentos" : {
+                "renda_fixa" : [],
+                "tesouro_direto" : [],
+                "acoes" : [],
+                "fiis" : []
+            }
+        }
+Json_utils("controle").gravar_json(json_prototipo)
 
 def apply_theme(root):
     """Apply the project theme as defaults; per-widget options override these."""
@@ -45,7 +61,7 @@ class Application:
         self.label2 = tk.Label(root, text="Tipo de Gasto")
         self.label2.place(x=50, y=40, width=90, height=26)
 
-        self.combobox1 = ttk.Combobox(root, values=["Option 1", "Option 2", "Option 3"])
+        self.combobox1 = ttk.Combobox(root, values=["Aluguel", "Transporte", "Internet", "Alimentação"])
         self.combobox1.place(x=15, y=72, width=160, height=28)
 
         self.Label3 = tk.Label(root, text="Valor Gasto")
@@ -60,13 +76,13 @@ class Application:
         self.dateentry1 = DateEntry(root, date_pattern="yyyy-mm-dd")
         self.dateentry1.place(x=350, y=71, width=130, height=28)
 
-        self.separator1 = ttk.Separator(root, orient="horizontal")
-        self.separator1.place(x=0, y=160, width=520, height=20)
+        # self.separator1 = ttk.Separator(root, orient="horizontal")
+        # self.separator1.place(x=0, y=160, width=520, height=20)
 
         self.label5 = tk.Label(root, text="Investimentos")
         self.label5.place(x=215, y=177, width=90, height=26)
 
-        self.combobox2 = ttk.Combobox(root, values=["Option 1", "Option 2", "Option 3"])
+        self.combobox2 = ttk.Combobox(root, values=["Renda fixa", "Tesouro direto", "Ações","FIIS"])
         self.combobox2.place(x=15, y=260, width=160, height=28)
 
         self.entry3 = tk.Entry(root)
@@ -96,12 +112,14 @@ class Application:
         self.label10_alertas2 = tk.Label(root, text="")
         self.label10_alertas2.place(x=20, y=332, width=210, height=30)
 
+    def salvamento(self):
+        pass
     def on_button1(self):
-        pass
-
+        self.salvamento()
+        
     def on_button2(self):
-        pass
-
+        self.entry2.delete(0,tk.END)
+        self.entry3.delete(0,tk.END)
 
 if __name__ == "__main__":
     root = tk.Tk()
